@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "./layout.css";
+@import "./goals.css";
+@import "./detail.css";
+@import "./forms.css";
+
+@theme {
+  --font-sans: 'Segoe UI', Arial, sans-serif;
+  --color-bloom-ink: #171b1d;
+  --color-bloom-paper: #ffffff;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    color: #171b1d;
+    background: white;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  [tabindex] {
+    outline-offset: 4px;
+  }
+
+  :focus-visible {
+    outline: 2px solid #526d85;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  dialog:not([open]) {
+    display: none;
+  }
+
+  ::selection {
+    background: #e1e8ef;
+  }
+}
+
+@layer components {
+  .button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .primary {
+    background: #171b1d;
+    color: white;
+  }
+
+  .primary:hover {
+    background: #343a3d;
+  }
+
+  .secondary {
+    background: white;
+    border-color: #dfe2e5;
+    color: #434b52;
+  }
+
+  .secondary:hover {
+    background: #f7f8f9;
+  }
+
+  .danger {
+    background: #a44337;
+    color: white;
+  }
+
+  .text-button {
+    @apply inline-flex items-center gap-2 text-sm;
+    color: #64727e;
+    border: 0;
+    background: none;
+    padding: 0;
+  }
+
+  .text-button:hover {
+    color: #171b1d;
+  }
+
+  .icon-button {
+    @apply inline-flex shrink-0 items-center justify-center rounded-lg;
+    border: 0;
+    color: #6f7880;
+    background: transparent;
+    width: 34px;
+    height: 34px;
+  }
+
+  .icon-button:hover {
+    background: #f3f4f5;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 12px;
+    letter-spacing: .4px;
+    color: #77818b;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+}
+

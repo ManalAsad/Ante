@@ -1,0 +1,243 @@
+.modal {
+  border: 1px solid #e5e7e9;
+  border-radius: 17px;
+  color: #242c31;
+  background: white;
+  width: min(480px, calc(100% - 28px));
+  max-height: calc(100dvh - 40px);
+  padding: 0;
+  margin: auto;
+  box-shadow: 0 24px 90px #151b2530;
+  overflow-y: auto;
+}
+
+.modal-wide {
+  width: min(620px, calc(100% - 28px));
+}
+
+.modal::backdrop {
+  background: #18212960;
+}
+
+.modal-inner {
+  padding: 29px;
+}
+
+.modal-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.modal-heading h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 27px;
+  letter-spacing: -.6px;
+}
+
+.modal-heading p {
+  color: #7e8993;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.goal-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: #4c5861;
+  font-weight: 500;
+}
+
+.goal-form input:not([type=file]):not([type=range]),
+.goal-form select {
+  display: block;
+  width: 100%;
+  height: 43px;
+  padding: 10px 12px;
+  background: white;
+  color: #353e45;
+  border: 1px solid #dfe4e7;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 400;
+  min-width: 0;
+}
+
+.goal-form input::placeholder {
+  color: #9ba5ac;
+}
+
+.goal-form input:focus,
+.goal-form select:focus {
+  border-color: #7c8e9b;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.form-grid > label {
+  min-width: 0;
+}
+
+.field-help {
+  color: #7f8b95;
+  font-size: 11px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.photo-picker {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.photo-picker legend {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4c5861;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.optional {
+  color: #8d98a0;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.photo-preview {
+  height: 145px;
+  border-radius: 9px;
+}
+
+.photo-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 8px;
+}
+
+.small-button {
+  font-size: 11px;
+  padding: 8px 11px;
+}
+
+.remove-photo {
+  font-size: 11px;
+}
+
+.photo-actions > .field-help {
+  margin-left: auto;
+  font-size: 10px;
+}
+
+.goal-form .photo-position {
+  margin: 14px 0 10px;
+}
+
+.photo-position input {
+  width: 100%;
+  height: 16px;
+  accent-color: #5a6d79;
+}
+
+.schedule-preview {
+  padding: 14px 16px;
+  background: #f6f7f8;
+  border-radius: 8px;
+}
+
+.schedule-preview > span {
+  display: block;
+  color: #7f8b95;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.schedule-preview strong {
+  display: block;
+  color: #45535e;
+  font-size: 14px;
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+.schedule-preview p {
+  color: #7e8a94;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.form-error {
+  color: #a44735;
+  background: #fff2ec;
+  border-radius: 7px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.confirm-copy {
+  color: #74808a;
+  line-height: 1.9;
+  font-size: 13px;
+  margin-bottom: 23px;
+}
+
+@media (max-width: 550px) {
+  .modal-inner {
+    padding: 22px;
+  }
+
+  .modal-heading h2 {
+    font-size: 25px;
+  }
+
+  .form-footer .button {
+    font-size: 12px;
+    padding: 12px 14px;
+  }
+
+  .form-grid {
+    gap: 13px;
+  }
+
+  .goal-form input:not([type=file]):not([type=range]),
+  .goal-form select {
+    font-size: 16px;
+  }
+
+  .modal {
+    max-height: calc(100dvh - 24px);
+  }
+
+  .photo-actions > .field-help {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+}
