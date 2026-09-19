@@ -142,9 +142,10 @@
 }
 
 .section-heading h2 {
-  font-family: Georgia, serif;
-  font-size: 20px;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 620;
+  letter-spacing: -.4px;
 }
 
 .section-heading > span {
