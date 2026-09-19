@@ -6,11 +6,12 @@ import { money } from '../../../../logic/domain/money.js';
 import { nextContribution } from '../../../../logic/domain/schedule.js';
 import { formatDate } from '../../../../logic/domain/dates.js';
 
-export default function GoalCard({ goal, onOpen }) {
+export default function GoalCard({ goal, onOpen, muted = false }) {
   const progress = goalProgress(goal);
   const next = nextContribution(goal);
   const style = categoryStyle(goal.category);
-  return <button className="goal-card" onClick={onOpen} aria-label={`Open ${goal.name}, ${progress.percent}% saved`}>
+  return <button className={`goal-card ${muted ? 'is-muted' : ''}`} onClick={onOpen}
+    aria-label={`Open ${goal.name}, ${progress.percent}% saved`}>
     <GoalCover goal={goal} />
     <div className="card-body">
       <h2>{goal.name}</h2>
@@ -21,7 +22,7 @@ export default function GoalCard({ goal, onOpen }) {
 
       <div className="progress-track" role="progressbar" aria-label={`${goal.name} progress`} 
       aria-valuenow={progress.percent} aria-valuemin={0} aria-valuemax={100}>
-        <span style={{ width: `${progress.percent}%`, background: style.accent }} /></div>
+        <span style={{ width: `${progress.percent}%`, background: muted ? '#a6adb3' : style.accent }} /></div>
 
       <div className="card-next">{next ? <>
       <span>Next contribution</span><strong>{formatDate(next.dueDate)} · {money(next.remainingCents, true)}</strong></> : 
