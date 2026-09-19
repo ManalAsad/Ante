@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from '../../components/Modal.jsx';
 import PhotoPicker from './PhotoPicker.jsx';
+import ThemePicker from './ThemePicker.jsx';
 import { today, formatDate } from '../../../../logic/domain/dates.js';
 import { money, toCents } from '../../../../logic/domain/money.js';
 import { FREQUENCIES, buildSchedule } from '../../../../logic/domain/schedule.js';
@@ -10,7 +11,7 @@ export default function GoalForm({ goal, onSave, onClose }) {
   const [values, setValues] = useState({ name: goal?.name ?? '', category: goal?.category ?? 'Personal',
     targetAmount: goal ? (goal.targetCents / 100).toFixed(2) : '', photo: goal?.photo ?? null, photoPosition: goal?.photoPosition ?? 50,
     startDate: goal?.startDate ?? today(), frequency: goal?.frequency ?? 'weekly', periods: goal?.periods ?? 12,
-    customDays: goal?.customDays ?? 10 });
+    customDays: goal?.customDays ?? 10, themeId: goal?.themeId ?? null });
 
   const [error, setError] = useState('');
 
@@ -59,6 +60,10 @@ export default function GoalForm({ goal, onSave, onClose }) {
         onPositionChange={(photoPosition) => 
         setValues((current) => ({ ...current, photoPosition }))} 
         onBusyChange={setPhotoBusy} />
+
+      <ThemePicker themeId={values.themeId}
+        onChange={(themeId) =>
+          setValues((current) => ({ ...current, themeId }))} />
 
       <div className="form-grid">
         <label>Start date<input {...field('startDate')} type="date" min="1900-01-01" max="2200-12-31" required /></label>
