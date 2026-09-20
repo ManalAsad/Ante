@@ -15,8 +15,8 @@ export default function BloomedJourneys({ goals, onOpen, onJourney }) {
 
   return <>
     <header className="page-heading journey-heading"><div>
-      <span className="eyebrow">Fully grown</span>
-      <h1>Completed journeys</h1></div>
+      <span className="eyebrow">The pot is yours.</span>
+      <h1>You Did it!</h1></div>
       {done.length > 0 && <div className="completed-total">
         <strong>{done.length}</strong><span>{done.length === 1 ? 'scene' : 'scenes'} in full bloom</span>
       </div>}</header>
@@ -37,7 +37,7 @@ export default function BloomedJourneys({ goals, onOpen, onJourney }) {
           <JourneyCard key={goal.id} goal={goal} index={index} muted onOpen={() => onOpen(goal.id)} />)}
       </section>
       <p className="field-help completed-note">
-        <Sparkles size={13} /> Grown all the way. Open one to look back at how it got there.</p>
+        <Sparkles size={13} />Open one to look back at how it got there.</p>
     </>}
   </>;
 }
