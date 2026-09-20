@@ -3,6 +3,7 @@ import { parseDate, today } from './dates.js';
 import { buildSchedule, FREQUENCIES } from './schedule.js';
 import { CATEGORIES } from './categories.js';
 import { validatePhoto, validatePhotoPosition } from './photos.js';
+import { validateThemeId } from './themes.js';
 
 export function validateGoal(goal) {
   if (typeof goal.name !== 'string' || !goal.name.trim() || goal.name.length > 80) 
@@ -27,7 +28,9 @@ export function validateGoal(goal) {
 
   validatePhotoPosition(goal.photoPosition ?? 50);
 
-  if (!CATEGORIES.includes(goal.category)) 
+  validateThemeId(goal.themeId ?? null);
+
+  if (!CATEGORIES.includes(goal.category))
     throw new Error('Choose a goal category.');
   parseDate(goal.startDate);
 
@@ -41,6 +44,7 @@ export function goalFromInput(input, existing = null) {
     id: existing?.id ?? crypto.randomUUID(), name: input.name.trim(), category: input.category,
     targetCents: toCents(input.targetAmount),
     photo: validatePhoto(input.photo ?? null), photoPosition: validatePhotoPosition(Number(input.photoPosition ?? 50)),
+    themeId: validateThemeId(input.themeId ?? null),
     startDate: input.startDate, frequency: input.frequency, periods: Number(input.periods),
     customDays: Number(input.customDays ?? 1),
     contributions: existing?.contributions ?? [], createdAt: existing?.createdAt ?? new Date().toISOString(),

@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
 
+const HOME = { view: 'home', goalId: null };
+
 function readRoute() {
-  const match = window.location.hash.match(/^#\/goals\/([^/]+)$/);
-  try { return match ? decodeURIComponent(match[1]) : null; }
-  catch { return null; }
+  const hash = window.location.hash;
+  if (hash === '#/journey') return { view: 'journey', goalId: null };
+  if (hash === '#/completed') return { view: 'completed', goalId: null };
+  const match = hash.match(/^#\/goals\/([^/]+)$/);
+  try { return match ? { view: 'goal', goalId: decodeURIComponent(match[1]) } : HOME; }
+  catch { return HOME; }
 }
 
 export function useGoalRoute() {
-  const [goalId, setGoalId] = useState(readRoute);
+  const [route, setRoute] = useState(readRoute);
   useEffect(() => {
-    const update = () => { setGoalId(readRoute()); window.scrollTo(0, 0); };
+    const update = () => { setRoute(readRoute()); window.scrollTo(0, 0); };
     window.addEventListener('hashchange', update);
     return () => window.removeEventListener('hashchange', update);
   }, []);
-  return { goalId, openGoal: (id) => { window.location.hash = `/goals/${encodeURIComponent(id)}`; },
-    goHome: () => { window.location.hash = '/'; } };
+  return { ...route, openGoal: (id) => { window.location.hash = `/goals/${encodeURIComponent(id)}`; },
+    goHome: () => { window.location.hash = '/'; },
+    goJourney: () => { window.location.hash = '/journey'; },
+    goCompleted: () => { window.location.hash = '/completed'; } };
 }

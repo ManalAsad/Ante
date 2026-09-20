@@ -1,2 +1,2 @@
-# Vibe-Vault
+# Vibe - Vault
 coming soon

@@ -2,10 +2,13 @@
 @import "./layout.css";
 @import "./goals.css";
 @import "./detail.css";
+@import "./journey.css";
 @import "./forms.css";
 
 @theme {
-  --font-sans: 'Segoe UI', Arial, sans-serif;
+  /* Inter when it loads, otherwise whatever the platform's own UI face is. */
+  --font-sans: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-sans);
   --color-bloom-ink: #171b1d;
   --color-bloom-paper: #ffffff;
 }

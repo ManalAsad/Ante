@@ -1,7 +1,10 @@
 import { Plus } from 'lucide-react';
 import GoalCard from './GoalCard.jsx';
+import { goalProgress } from '../../../../logic/domain/goals.js';
 
 export default function Dashboard({ goals, onCreate, onOpen, onDemo }) {
+  const active = goals.filter((goal) => !goalProgress(goal).completed);
+
   return <>
     <header className="page-heading dashboard-heading"><div>
       <span className="eyebrow">Savings</span>
@@ -14,9 +17,13 @@ export default function Dashboard({ goals, onCreate, onOpen, onDemo }) {
       <button className="text-button" onClick={onDemo}>Try sample goals</button>
       </div>}
 
-    <section className="goal-grid" aria-label="Savings goals">
-      {goals.map((goal) => 
-      <GoalCard key={goal.id} goal={goal} onOpen={() => 
+    {goals.length > 0 && active.length === 0 && <div className="empty-intro">
+      <h2>Every goal is finished</h2><p>Nothing left in progress. Start something new, or open Completed in the sidebar to look back.</p>
+      </div>}
+
+    <section className="goal-grid" aria-label="Savings goals in progress">
+      {active.map((goal) =>
+      <GoalCard key={goal.id} goal={goal} onOpen={() =>
       onOpen(goal.id)} />)}
       <button className="new-goal-card" onClick={onCreate}>
         <Plus size={25} strokeWidth={1.5} /><span>New goal</span></button>

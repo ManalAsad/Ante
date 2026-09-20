@@ -3,6 +3,8 @@ import { AlertCircle, X } from 'lucide-react';
 import Sidebar from './components/Sidebar.jsx';
 import Modal from './components/Modal.jsx';
 import Dashboard from './features/goals/Dashboard.jsx';
+import Completed from './features/goals/Completed.jsx';
+import Journey from './features/journey/Journey.jsx';
 import GoalDetail from './features/goals/GoalDetail.jsx';
 import GoalForm from './features/goals/GoalForm.jsx';
 import ContributionForm from './features/goals/ContributionForm.jsx';
@@ -46,8 +48,9 @@ export default function App() {
       { event.preventDefault(); 
       document.getElementById('main-content')?.focus(); }}>Skip to content</a>
 
-    <Sidebar onHome={route.goHome} onExport={() => 
-      safely(data.exportBackup)} onImport={() => 
+    <Sidebar view={route.view} onHome={route.goHome} onJourney={route.goJourney}
+      onCompleted={route.goCompleted} onExport={() =>
+      safely(data.exportBackup)} onImport={() =>
       importInput.current?.click()} />
 
     <input ref={importInput} 
@@ -78,7 +81,15 @@ export default function App() {
           {error && <button className="icon-button" aria-label="Dismiss error" onClick={() => 
             setError('')}><X size={16} /></button>}</div>}
 
-      {selected ? <GoalDetail key={selected.id} 
+      {route.view === 'journey' ? <Journey goals={data.goals}
+        onOpen={route.openGoal}
+        onCreate={() => setDialog({ type: 'create' })} /> :
+
+        route.view === 'completed' ? <Completed goals={data.goals}
+        onOpen={route.openGoal}
+        onHome={route.goHome} /> :
+
+        selected ? <GoalDetail key={selected.id}
       goal={selected} 
       
       onBack={route.goHome}
@@ -94,8 +105,8 @@ export default function App() {
 
         <Dashboard goals={data.goals} onCreate={() => 
         setDialog({ type: 'create' })} 
-        onOpen={route.openGoal} 
-        onDemo={() => safely(() => { data.seed(); 
+        onOpen={route.openGoal}
+        onDemo={() => safely(() => { data.seed();
         setNotice('Sample goals added. You can change their photos or create your own.'); })} />}
 
     </main></div>

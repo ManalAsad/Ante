@@ -2,6 +2,7 @@ import { validateGoal } from '../domain/goals.js';
 import { buildSchedule } from '../domain/schedule.js';
 import { MAX_CENTS } from '../domain/money.js';
 import { parseDate } from '../domain/dates.js';
+import { THEME_IDS } from '../domain/themes.js';
 
 export const STORAGE_KEY = 'bloom.goals.v1';
 export function decodeData(raw) {
@@ -12,7 +13,9 @@ export function decodeData(raw) {
 
   const ids = new Set();
 
-  return data.goals.map((goal) => {
+  return data.goals.map((stored) => {
+    // Old backups still load; a journey theme we no longer ship is simply dropped.
+    const goal = { ...stored, themeId: THEME_IDS.includes(stored.themeId) ? stored.themeId : null };
     validateGoal(goal);
     if (typeof goal.id !== 'string' || !goal.id || ids.has(goal.id) || !Array.isArray(goal.contributions)) 
       throw new Error('This backup contains an invalid goal.');
@@ -33,10 +36,7 @@ export function decodeData(raw) {
     if (!Number.isSafeInteger(total) || total > MAX_CENTS) 
       throw new Error('Saved amount exceeds the supported limit.');
 
-    // Old backups still load; retired presentation settings are discarded
-
-    const { themeId: retiredTheme, ...current } = goal;
-    return { ...current, photo: goal.photo || null, photoPosition: goal.photoPosition ?? 50, schedule: buildSchedule(goal) };
+    return { ...goal, photo: goal.photo || null, photoPosition: goal.photoPosition ?? 50, schedule: buildSchedule(goal) };
   });
 }
 
