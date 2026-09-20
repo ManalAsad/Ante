@@ -27,7 +27,7 @@ const {
   getBudgetProgress,
   computeBudgetState,
   ValidationError,
-} = require('../src/index');
+} = require('../index');
 
 function run() {
   // Create with numPeriods
