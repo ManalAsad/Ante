@@ -45,14 +45,6 @@
   overflow: hidden;
 }
 
-.journey-scene {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
 .journey-panel {
   display: flex;
   flex-direction: column;
@@ -158,6 +150,44 @@
   color: #242b30;
 }
 
+/* A finished journey is kept quiet: the scene greys back until you hover it. */
+.journey-card.is-muted {
+  background: #fbfbfc;
+  border-color: #e8eaec;
+  animation: none;
+}
+
+.journey-card.is-muted .journey-art {
+  filter: grayscale(.72);
+  opacity: .62;
+  transition: filter .3s, opacity .3s;
+}
+
+.journey-card.is-muted:hover .journey-art {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.journey-card.is-muted .journey-panel h2,
+.journey-card.is-muted .journey-percent,
+.journey-card.is-muted .journey-stats strong {
+  color: #79838b;
+}
+
+.journey-card.is-muted .journey-line,
+.journey-card.is-muted .journey-stats {
+  color: #97a0a7;
+}
+
+.journey-card.is-muted .journey-stage {
+  background: #f2f3f4;
+  color: #8a939a;
+}
+
+.journey-card.is-muted .journey-meter > span {
+  background: #c4ccd1;
+}
+
 .journey-empty {
   display: grid;
   grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
@@ -197,288 +227,10 @@
   margin-top: 24px;
 }
 
-/* Shared scene animation
-   ------------------------------------------------------------------ */
-.scene-halo {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: lotus-breathe 4.2s ease-in-out infinite;
-}
-
-.scene-motes circle {
-  animation: lotus-drift 9s ease-in-out infinite;
-}
-
-.scene-sparkles path {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: lotus-twinkle 2.8s ease-in-out infinite;
-}
-
-/* Lotus scene
-   ------------------------------------------------------------------ */
-.lotus-sway {
-  transform-box: view-box;
-  transform-origin: 220px 252px;
-  animation: lotus-sway 6.5s ease-in-out infinite;
-}
-
-.lotus-ripples ellipse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: lotus-ripple 3.2s ease-out infinite;
-}
-
-.lotus-ring {
-  transform-box: fill-box;
-  transform-origin: bottom center;
-  animation: lotus-breathe 5.4s ease-in-out infinite;
-}
-
-.lotus-ring-1 {
-  animation-duration: 4.6s;
-}
-
-.lotus-ring-2 {
-  animation-duration: 3.9s;
-}
-
-/* Droplets only fall while a scene is filling up to its current progress. */
-.lotus-drops {
-  opacity: 0;
-}
-
-.lotus-scene.is-filling .lotus-drops {
-  opacity: 1;
-}
-
-.lotus-scene.is-filling .lotus-drops path {
-  animation: lotus-drop 1.15s cubic-bezier(.4, 0, .9, .4) infinite;
-}
-
-/* Pup scene
-   ------------------------------------------------------------------ */
-.pup-tail {
-  transform-box: view-box;
-  transform-origin: 124px 246px;
-  animation: pup-wag 1.4s ease-in-out infinite;
-}
-
-.pup-ear {
-  transform-box: fill-box;
-  transform-origin: top center;
-  animation: pup-flap 3.4s ease-in-out infinite;
-}
-
-.pup-eye {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: pup-blink 5.2s ease-in-out infinite;
-}
-
-.pup-tongue {
-  transform-box: fill-box;
-  transform-origin: top center;
-  animation: pup-pant 1.05s ease-in-out infinite;
-}
-
-.pup-hearts path {
-  animation: pup-heart 3.6s ease-out infinite;
-}
-
-/* He only bounces once the bowl is genuinely full. */
-.pup-scene.is-happy .pup-bounce {
-  transform-box: view-box;
-  transform-origin: 204px 298px;
-  animation: pup-bounce 1.3s cubic-bezier(.3, 0, .4, 1) infinite;
-}
-
-.pup-kibble {
-  opacity: 0;
-}
-
-.pup-scene.is-filling .pup-kibble {
-  opacity: 1;
-}
-
-.pup-scene.is-filling .pup-kibble circle {
-  animation: pup-fall 1.05s cubic-bezier(.4, 0, .9, .4) infinite;
-}
-
-.journey-scene.is-still .lotus-sway,
-.journey-scene.is-still .lotus-ring,
-.journey-scene.is-still .scene-motes circle,
-.journey-scene.is-still .pup-ear,
-.journey-scene.is-still .pup-bounce {
-  animation: none;
-}
-
 @keyframes journey-rise {
   from {
     opacity: 0;
     transform: translateY(22px) scale(.97);
-  }
-}
-
-@keyframes lotus-sway {
-  0%, 100% {
-    transform: rotate(-1.6deg);
-  }
-
-  50% {
-    transform: rotate(1.6deg);
-  }
-}
-
-@keyframes lotus-breathe {
-  0%, 100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.045);
-  }
-}
-
-@keyframes lotus-drift {
-  0%, 100% {
-    transform: translate(0, 0);
-    opacity: .35;
-  }
-
-  50% {
-    transform: translate(9px, -26px);
-    opacity: .95;
-  }
-}
-
-@keyframes lotus-ripple {
-  0% {
-    transform: scale(.3);
-    opacity: .9;
-  }
-
-  100% {
-    transform: scale(3.4);
-    opacity: 0;
-  }
-}
-
-@keyframes lotus-twinkle {
-  0%, 100% {
-    transform: scale(.4) rotate(0deg);
-    opacity: .2;
-  }
-
-  50% {
-    transform: scale(1.15) rotate(45deg);
-    opacity: 1;
-  }
-}
-
-@keyframes lotus-drop {
-  0% {
-    transform: translateY(0) scaleY(.8);
-    opacity: 0;
-  }
-
-  18% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(205px) scaleY(1.5);
-    opacity: 0;
-  }
-}
-
-@keyframes pup-wag {
-  0%, 100% {
-    transform: rotate(-15deg);
-  }
-
-  50% {
-    transform: rotate(15deg);
-  }
-}
-
-@keyframes pup-flap {
-  0%, 82%, 100% {
-    transform: rotate(0deg);
-  }
-
-  88% {
-    transform: rotate(-9deg);
-  }
-
-  94% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes pup-blink {
-  0%, 92%, 100% {
-    transform: scaleY(1);
-  }
-
-  96% {
-    transform: scaleY(.1);
-  }
-}
-
-@keyframes pup-pant {
-  0%, 100% {
-    transform: scaleY(1);
-  }
-
-  50% {
-    transform: scaleY(1.35);
-  }
-}
-
-@keyframes pup-bounce {
-  0%, 100% {
-    transform: translateY(0) scaleY(1);
-  }
-
-  42% {
-    transform: translateY(-13px) scaleY(1.03);
-  }
-
-  72% {
-    transform: translateY(0) scaleY(.97);
-  }
-}
-
-@keyframes pup-heart {
-  0% {
-    transform: translateY(0) scale(.4);
-    opacity: 0;
-  }
-
-  25% {
-    opacity: .95;
-  }
-
-  100% {
-    transform: translateY(-70px) scale(1.1);
-    opacity: 0;
-  }
-}
-
-@keyframes pup-fall {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-
-  18% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(200px);
-    opacity: 0;
   }
 }
 
@@ -523,21 +275,7 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-  .journey-card,
-  .scene-halo,
-  .scene-motes circle,
-  .scene-sparkles path,
-  .lotus-sway,
-  .lotus-ripples ellipse,
-  .lotus-ring,
-  .lotus-drops path,
-  .pup-tail,
-  .pup-ear,
-  .pup-eye,
-  .pup-tongue,
-  .pup-hearts path,
-  .pup-kibble circle,
-  .pup-scene.is-happy .pup-bounce {
+  .journey-card {
     animation: none;
   }
 
