@@ -34,7 +34,7 @@ const PALETTE = {
   bunting: ['#b0aca7', '#e0c37c'],
 };
 
-const CONFETTI = ['#cb8ba0', '#e0c37c', '#a7c3d4', '#88a980', '#f0d8e2'];
+const CONFETTI = ['#e00b0b', '#e7ab14', '#a7c3d4', '#88a980'];
 
 const shade = (key, r) => mix(PALETTE[key][0], PALETTE[key][1], r);
 
