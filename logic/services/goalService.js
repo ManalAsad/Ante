@@ -1,5 +1,5 @@
 import { goalFromInput, addContribution } from '../domain/goals.js';
-import { decodeData } from '../repositories/goalRepository.js';
+import { goalsToCsv } from '../domain/csv.js';
 
 // UI-independent application layer. A future API adapter can replace the repository.
 export function createGoalService(repository) {
@@ -22,7 +22,6 @@ export function createGoalService(repository) {
     },
     remove(goals, id) { find(goals, id); return commit(goals.filter((goal) => goal.id !== id)); },
     replace: (goals) => commit(goals),
-    import: (raw) => commit(decodeData(raw)),
-    export: () => repository.exportRaw(),
+    exportCsv: (goals) => goalsToCsv(goals),
   };
 }
