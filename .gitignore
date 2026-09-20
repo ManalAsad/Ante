@@ -2,3 +2,6 @@ node_modules/
 dist/
 .DS_Store
 *.log
+logic/data.json
+logic/data.json.tmp
+
