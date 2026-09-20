@@ -147,6 +147,49 @@
   animation: cycle-confetti 3s linear infinite;
 }
 
+/* Crow scene
+   ------------------------------------------------------------------ */
+.crow-wing {
+  transform-box: view-box;
+  transform-origin: 190px 240px;
+  animation: crow-settle 4.8s ease-in-out infinite;
+}
+
+.crow-tail {
+  transform-box: view-box;
+  transform-origin: 138px 252px;
+  animation: crow-flick 5.6s ease-in-out infinite;
+}
+
+.crow-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: crow-blink 5.8s ease-in-out infinite;
+}
+
+.crow-shimmer ellipse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: crow-shimmer 3.6s ease-in-out infinite;
+}
+
+/* A pebble only drops while the pitcher is catching up to a contribution. */
+.crow-pebble {
+  opacity: 0;
+}
+
+.crow-scene.is-filling .crow-pebble {
+  opacity: 1;
+}
+
+.crow-scene.is-filling .crow-pebble ellipse {
+  animation: crow-drop 1.2s cubic-bezier(.4, 0, .9, .4) infinite;
+}
+
+.crow-drops ellipse {
+  animation: crow-dribble 2.4s ease-in infinite;
+}
+
 /* Pup scene
    ------------------------------------------------------------------ */
 .pup-tail {
@@ -206,7 +249,10 @@
 .journey-scene.is-still .cycle-leg,
 .journey-scene.is-still .cycle-bob,
 .journey-scene.is-still .cycle-road-line,
-.journey-scene.is-still .cycle-confetti rect {
+.journey-scene.is-still .cycle-confetti rect,
+.journey-scene.is-still .crow-wing,
+.journey-scene.is-still .crow-tail,
+.journey-scene.is-still .crow-shimmer ellipse {
   animation: none;
 }
 
@@ -452,6 +498,84 @@
   }
 }
 
+@keyframes crow-settle {
+  0%, 88%, 100% {
+    transform: rotate(0deg);
+  }
+
+  92% {
+    transform: rotate(-5deg) translateY(-2px);
+  }
+
+  96% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes crow-flick {
+  0%, 84%, 100% {
+    transform: rotate(0deg);
+  }
+
+  90% {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes crow-blink {
+  0%, 93%, 100% {
+    transform: scaleY(1);
+  }
+
+  96% {
+    transform: scaleY(.1);
+  }
+}
+
+@keyframes crow-shimmer {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: .5;
+  }
+
+  50% {
+    transform: scaleX(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes crow-drop {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(150px);
+    opacity: 0;
+  }
+}
+
+@keyframes crow-dribble {
+  0%, 55% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  62% {
+    opacity: .9;
+  }
+
+  100% {
+    transform: translateY(74px);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .scene-halo,
@@ -475,7 +599,13 @@
   .cycle-road-line,
   .cycle-dust circle,
   .cycle-speed path,
-  .cycle-scene.is-arrived .cycle-confetti rect {
+  .cycle-scene.is-arrived .cycle-confetti rect,
+  .crow-wing,
+  .crow-tail,
+  .crow-eye,
+  .crow-shimmer ellipse,
+  .crow-drops ellipse,
+  .crow-scene.is-filling .crow-pebble ellipse {
     animation: none;
   }
 }
