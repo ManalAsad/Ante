@@ -1,8 +1,10 @@
-import { Flower2, LayoutGrid, Route, Trophy, Download } from 'lucide-react';
+import { Flower2, LayoutGrid, Route, Sparkles, Trophy, Download } from 'lucide-react';
 
-export default function Sidebar({ view, onHome, onJourney, onCompleted, onExport }) {
+const PAGES = ['journey', 'bloomed', 'completed'];
+
+export default function Sidebar({ view, onHome, onJourney, onBloomed, onCompleted, onExport }) {
   const link = (target, Icon, label, onClick) => {
-    const active = target === 'home' ? view !== 'journey' && view !== 'completed' : view === target;
+    const active = target === 'home' ? !PAGES.includes(view) : view === target;
     return <button className={`nav-link ${active ? 'active' : ''}`}
       aria-current={active ? 'page' : undefined} onClick={onClick}>
       <Icon size={19} /><span>{label}</span>
@@ -19,7 +21,8 @@ export default function Sidebar({ view, onHome, onJourney, onCompleted, onExport
     <nav aria-label="Main navigation">
       {link('home', LayoutGrid, 'My goals', onHome)}
       {link('journey', Route, 'My journey', onJourney)}
-      {link('completed', Trophy, 'Completed', onCompleted)}
+      {link('bloomed', Sparkles, 'Completed journeys', onBloomed)}
+      {link('completed', Trophy, 'Completed goals', onCompleted)}
     </nav>
 
     <div className="sidebar-bottom">
