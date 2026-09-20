@@ -46,6 +46,21 @@ export const THEMES = {
       { at: 1, title: 'Keys in hand', line: 'You made it. Your car is rolling out onto the forecourt.' },
     ],
   },
+  crow: {
+    id: 'crow',
+    name: 'The Thirsty Crow',
+    scene: 'The thirsty crow',
+    blurb: 'A parched crow and a pitcher it cannot reach into. Every contribution is another pebble dropped in, lifting the water until the bird can finally drink.',
+    unit: { one: 'pebble', many: 'pebbles' },
+    stages: [
+      { at: 0, title: 'Parched', line: 'Dry ground, empty pitcher, and a crow with nothing to drink.' },
+      { at: 0.01, title: 'First pebble', line: 'One pebble in. The water moves for the first time.' },
+      { at: 0.25, title: 'Water stirring', line: 'The pile is growing and the level has started to climb.' },
+      { at: 0.5, title: 'Halfway up the pitcher', line: 'Halfway. The crow has stopped drooping and is watching closely.' },
+      { at: 0.75, title: 'Almost in reach', line: 'Nearly at the neck. A few more pebbles should do it.' },
+      { at: 1, title: 'A long drink', line: 'Right to the brim. The crow has its beak in the water at last.' },
+    ],
+  },
 };
 
 export const THEME_IDS = Object.keys(THEMES);
