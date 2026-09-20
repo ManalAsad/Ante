@@ -5,6 +5,7 @@ const HOME = { view: 'home', goalId: null };
 function readRoute() {
   const hash = window.location.hash;
   if (hash === '#/journey') return { view: 'journey', goalId: null };
+  if (hash === '#/journey/completed') return { view: 'bloomed', goalId: null };
   if (hash === '#/completed') return { view: 'completed', goalId: null };
   const match = hash.match(/^#\/goals\/([^/]+)$/);
   try { return match ? { view: 'goal', goalId: decodeURIComponent(match[1]) } : HOME; }
@@ -21,5 +22,6 @@ export function useGoalRoute() {
   return { ...route, openGoal: (id) => { window.location.hash = `/goals/${encodeURIComponent(id)}`; },
     goHome: () => { window.location.hash = '/'; },
     goJourney: () => { window.location.hash = '/journey'; },
+    goBloomed: () => { window.location.hash = '/journey/completed'; },
     goCompleted: () => { window.location.hash = '/completed'; } };
 }
