@@ -7,18 +7,17 @@ export default function Dashboard({ goals, onCreate, onOpen, onDemo }) {
 
   return <>
     <header className="page-heading dashboard-heading"><div>
-      <span className="eyebrow">Savings</span>
-      <h1>Bloom</h1></div>
+      <span className="eyebrow">Put something in. Watch it grow.</span>
+      <h1>Your Table</h1></div>
       <button className="button primary" onClick={onCreate}>
         <Plus size={17} />New goal</button></header>
 
     {goals.length === 0 && <div className="empty-intro">
-      <h2>What are you saving for?</h2><p>Add a goal, choose a photo, and start making progress.</p>
-      <button className="text-button" onClick={onDemo}>Try sample goals</button>
+      <h2>Every Player start somewhere.</h2><p>What's your first ante?</p>
       </div>}
 
     {goals.length > 0 && active.length === 0 && <div className="empty-intro">
-      <h2>Every goal is finished</h2><p>Nothing left in progress. Start something new, or open Completed in the sidebar to look back.</p>
+      <h2>Table cleared.</h2><p>Ready to play again?</p>
       </div>}
 
     <section className="goal-grid" aria-label="Savings goals in progress">
