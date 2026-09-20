@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AlertCircle, X } from 'lucide-react';
 import Sidebar from './components/Sidebar.jsx';
+import Login from './features/auth/Login.jsx';
 import Modal from './components/Modal.jsx';
 import Dashboard from './features/goals/Dashboard.jsx';
 import Completed from './features/goals/Completed.jsx';
@@ -11,16 +12,20 @@ import GoalForm from './features/goals/GoalForm.jsx';
 import ContributionForm from './features/goals/ContributionForm.jsx';
 import { useGoals } from './hooks/useGoals.js';
 import { useGoalRoute } from './hooks/useGoalRoute.js';
+import { useAuth } from './hooks/useAuth.js';
 
 export default function App() {
+  const auth = useAuth();
   const data = useGoals();
   const route = useGoalRoute();
   const [dialog, setDialog] = useState(null);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
-  const importInput = useRef(null);
   const selected = data.goals.find((goal) => goal.id === route.goalId);
   useEffect(() => { setDialog(null); }, [route.goalId]);
+
+  // Every hook above runs on both sides of this gate, so the order stays stable.
+  if (!auth.user) return <Login onSignIn={auth.signIn} />;
 
   const close = () => { setDialog(null); setError(''); };
   const safely = (action) => { try { action(); setError(''); } catch (err) { setError(err.message); } };
@@ -32,11 +37,6 @@ export default function App() {
         route.goHome(); 
         afterSave('Goal deleted.'); 
       }
-    if (dialog.type === 'restore') 
-      { data.importBackup(dialog.raw); 
-        route.goHome(); 
-        afterSave('Your backup has been restored.'); }
-
     if (dialog.type === 'reset') 
       { data.reset(); 
         route.goHome(); 
@@ -50,22 +50,9 @@ export default function App() {
       document.getElementById('main-content')?.focus(); }}>Skip to content</a>
 
     <Sidebar view={route.view} onHome={route.goHome} onJourney={route.goJourney}
-      onBloomed={route.goBloomed} onCompleted={route.goCompleted} onExport={() =>
-      safely(data.exportBackup)} onImport={() =>
-      importInput.current?.click()} />
-
-    <input ref={importInput} 
-    type="file" accept=".json,application/json" hidden onChange={async (event) => {
-      const file = event.target.files?.[0]; event.target.value = '';
-      if (!file) return;
-      try { if (file.size > 10_000_000) 
-        throw new Error('Choose a backup smaller than 10 MB.'); 
-        setDialog({ type: 'restore', raw: await file.text() }); }
-
-      catch (err) { 
-        setError(err.message); }
-
-    }} />
+      onBloomed={route.goBloomed} onCompleted={route.goCompleted}
+      user={auth.user} onSignOut={auth.signOut} onExport={() =>
+      safely(data.exportCsv)} />
     <div className="main-shell">
       <main id="main-content" tabIndex={-1}>
 
@@ -133,17 +120,16 @@ export default function App() {
       data.contribute(selected.id, input); afterSave('Contribution saved.');
     }} />}
 
-    {['delete', 'restore', 'reset'].includes(dialog?.type) && 
-    <Modal title={dialog.type === 'delete' ? 'Delete this goal?' : dialog.type === 'restore' ? 'Restore this backup?' : 'Reset saved data?'} onClose={close}>
+    {['delete', 'reset'].includes(dialog?.type) && 
+    <Modal title={dialog.type === 'delete' ? 'Delete this goal?' : 'Reset saved data?'} onClose={close}>
 
       <p className="confirm-copy">
         {dialog.type === 'delete' ? 'This removes the goal, its photo, and its contribution history from this browser. This cannot be undone.' : 
-        'This replaces all goals saved in this browser. Export a backup first if you want to keep them.'}</p>
+        'This clears every goal saved in this browser. Export a CSV first if you want a record of them.'}</p>
       {error && <p className="form-error" role="alert">{error}</p>}
 
       <div className="form-footer"><button className="button secondary" onClick={close}>Cancel</button>
       <button className="button danger" onClick={confirmAction}>{dialog.type === 'delete' ? 'Delete goal' :
-       dialog.type === 'restore' ? 'Restore backup' : 
        'Reset data'}</button></div>
        
     </Modal>}
