@@ -5,6 +5,7 @@ import Modal from './components/Modal.jsx';
 import Dashboard from './features/goals/Dashboard.jsx';
 import Completed from './features/goals/Completed.jsx';
 import Journey from './features/journey/Journey.jsx';
+import BloomedJourneys from './features/journey/BloomedJourneys.jsx';
 import GoalDetail from './features/goals/GoalDetail.jsx';
 import GoalForm from './features/goals/GoalForm.jsx';
 import ContributionForm from './features/goals/ContributionForm.jsx';
@@ -49,7 +50,7 @@ export default function App() {
       document.getElementById('main-content')?.focus(); }}>Skip to content</a>
 
     <Sidebar view={route.view} onHome={route.goHome} onJourney={route.goJourney}
-      onCompleted={route.goCompleted} onExport={() =>
+      onBloomed={route.goBloomed} onCompleted={route.goCompleted} onExport={() =>
       safely(data.exportBackup)} onImport={() =>
       importInput.current?.click()} />
 
@@ -83,7 +84,12 @@ export default function App() {
 
       {route.view === 'journey' ? <Journey goals={data.goals}
         onOpen={route.openGoal}
+        onBloomed={route.goBloomed}
         onCreate={() => setDialog({ type: 'create' })} /> :
+
+        route.view === 'bloomed' ? <BloomedJourneys goals={data.goals}
+        onOpen={route.openGoal}
+        onJourney={route.goJourney} /> :
 
         route.view === 'completed' ? <Completed goals={data.goals}
         onOpen={route.openGoal}
