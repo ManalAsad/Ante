@@ -1,4 +1,5 @@
-import { Bike, Bone, Droplets } from 'lucide-react';
+import { Bike, Bone, Droplets, Feather } from 'lucide-react';
+import CrowScene from './CrowScene.jsx';
 import CycleScene from './CycleScene.jsx';
 import LotusScene from './LotusScene.jsx';
 import PupScene from './PupScene.jsx';
@@ -9,6 +10,7 @@ const ART = {
   lotus: { Scene: LotusScene, Icon: Droplets },
   pup: { Scene: PupScene, Icon: Bone },
   cycle: { Scene: CycleScene, Icon: Bike },
+  crow: { Scene: CrowScene, Icon: Feather },
 };
 
 export const artFor = (themeId) => ART[themeId] ?? ART.lotus;
