@@ -3,7 +3,7 @@
 export const THEMES = {
   lotus: {
     id: 'lotus',
-    name: 'Save for a trip',
+    name: 'The Reviving Lotus',
     scene: 'The reviving lotus',
     blurb: 'A thirsty lotus drinks in every contribution and opens into full bloom the day you reach your target.',
     unit: { one: 'drop', many: 'drops' },
@@ -18,7 +18,7 @@ export const THEMES = {
   },
   pup: {
     id: 'pup',
-    name: 'Save for a pet',
+    name: 'The Hungry Pup',
     scene: 'The hungry pup',
     blurb: 'A tired, hungry pup with an empty bowl. Every contribution is another meal, until he is bright, fed and wagging.',
     unit: { one: 'meal', many: 'meals' },
