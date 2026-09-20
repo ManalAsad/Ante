@@ -20,8 +20,8 @@ export default function Journey({ goals, onOpen, onCreate, onBloomed }) {
   return <>
     <header className="page-heading journey-heading">
       <div>
-        <span className="eyebrow">Your journey</span>
-        <h1>Watch them bloom</h1>
+        <span className="eyebrow">The road to your goal, one ante at a time.</span>
+        <h1>The long game.</h1>
       </div>
       <button className="button primary" onClick={onCreate}><Plus size={17} />New goal</button>
     </header>
