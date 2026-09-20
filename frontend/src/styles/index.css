@@ -5,6 +5,7 @@
 @import "./journey.css";
 @import "./scenes.css";
 @import "./forms.css";
+@import "./auth.css";
 
 @theme {
   /* Inter when it loads, otherwise whatever the platform's own UI face is. */
