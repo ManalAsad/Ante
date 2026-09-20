@@ -4,8 +4,8 @@ import { MAX_CENTS } from '../domain/money.js';
 import { parseDate } from '../domain/dates.js';
 import { THEME_IDS } from '../domain/themes.js';
 
-export const STORAGE_KEY = 'bloom.goals.v1';
-export function decodeData(raw) {
+const STORAGE_KEY = 'bloom.goals.v1';
+function decodeData(raw) {
   const data = JSON.parse(raw);
 
   if (data?.version !== 1 || !Array.isArray(data.goals) || data.goals.length > 500) 
@@ -50,8 +50,7 @@ export function createGoalRepository(getStorage = () => window.localStorage) {
       const raw = JSON.stringify({ version: 1, goals });
       decodeData(raw);
       try { getStorage().setItem(STORAGE_KEY, raw); }
-      catch { throw new Error('Your browser could not save this change.Storage may be full or disabled. Export a backup before continuing.'); }
+      catch { throw new Error('Your browser could not save this change. Storage may be full or disabled. Export your goals before continuing.'); }
     },
-    exportRaw() { return getStorage().getItem(STORAGE_KEY) ?? JSON.stringify({ version: 1, goals: [] }); },
   };
 }
