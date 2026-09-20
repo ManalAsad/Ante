@@ -53,20 +53,12 @@
   padding: 0 8px;
 }
 
+/* The mark draws in the brand ink, so it only needs room beside the wordmark. */
 .brand-mark {
-  background: linear-gradient(140deg, #b3a3e2, #db97ba 60%, #ecd28f);
-  width: 35px;
-  height: 35px;
-  border-radius: 11px;
   display: grid;
   place-items: center;
-  color: white;
-  margin-right: 9px;
-}
-
-.brand-mark svg {
-  width: 26px;
-  height: 26px;
+  margin-right: 10px;
+  color: #3a2a63;
 }
 
 .brand-dot {
@@ -113,22 +105,20 @@
   padding-top: 30px;
 }
 
-.local-note {
+.sidebar-user {
+  margin-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid #e6dff1;
-  padding: 18px 10px 0;
-  margin-top: 12px;
-  font-size: 10px;
-  color: #7d6ea0;
-  display: flex;
-  align-items: center;
-  gap: 7px;
 }
 
-.local-note > span {
-  width: 5px;
-  height: 5px;
-  background: #83a574;
-  border-radius: 50%;
+.sidebar-user > span {
+  display: block;
+  padding: 0 13px 8px;
+  font-size: 10px;
+  color: #7d6ea0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .main-shell {
